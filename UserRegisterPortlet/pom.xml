@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2012 Upic
+
+This file is part of GateIn Utils.
+
+GateIn Utils is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+GateIn Utils is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with GateIn Utils. If not, see <http://www.gnu.org/licenses/>.
+-->
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.upic.gatein</groupId>
+	<artifactId>UserRegisterPortlet</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>org.exoplatform.portal</groupId>
+			<artifactId>exo.portal.webui.portal</artifactId>
+			<version>3.4.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+</project>
