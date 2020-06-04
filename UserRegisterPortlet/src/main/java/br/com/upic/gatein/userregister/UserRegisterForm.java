@@ -37,36 +37,36 @@ import org.exoplatform.webui.form.validator.Validator;
 		@EventConfig(listeners = UserRegisterForm.RegisterActionListener.class),
 		@EventConfig(listeners = UserRegisterForm.ResetActionListener.class, phase = Phase.DECODE),
 		@EventConfig(name = "CheckAvailability", listeners = UserRegisterForm.CheckAvailabilityActionListener.class, phase = Phase.DECODE) })
-public final class UserRegisterForm extends UIFormTabPane {
+public class UserRegisterForm extends UIFormTabPane {
 
-	public static final class CheckAvailabilityActionListener extends
+	public static class CheckAvailabilityActionListener extends
 			EventListener<UserRegisterForm> {
 
 		@Override
-		public void execute(final Event<UserRegisterForm> event)
+		public void execute(Event<UserRegisterForm> event)
 				throws Exception {
-			final Validator validator = new MandatoryValidator();
+			Validator validator = new MandatoryValidator();
 
-			final UIContainer form = event.getSource();
+			UIContainer form = event.getSource();
 
-			final UIFormInput<String> userNameInput = form.getChild(
+			UIFormInput<String> userNameInput = form.getChild(
 					AccountInputSet.class).getUIStringInput("userName");
 
-			final UIApplication app = event.getRequestContext()
+			UIApplication app = event.getRequestContext()
 					.getUIApplication();
 
 			try {
 				validator.validate(userNameInput);
-			} catch (final MessageException e) {
+			} catch (MessageException e) {
 				app.addMessage(e.getDetailMessage());
 
 				return;
 			}
 
-			final OrganizationService orgService = form
+			OrganizationService orgService = form
 					.getApplicationComponent(OrganizationService.class);
 
-			final UserHandler userHandler = orgService.getUserHandler();
+			UserHandler userHandler = orgService.getUserHandler();
 
 			if (userHandler.findUserByName(userNameInput.getValue()) != null)
 				app.addMessage(new ApplicationMessage(
@@ -79,21 +79,21 @@ public final class UserRegisterForm extends UIFormTabPane {
 
 	}
 
-	public static final class RegisterActionListener extends
+	public static class RegisterActionListener extends
 			EventListener<UserRegisterForm> {
 
 		@Override
-		public void execute(final Event<UserRegisterForm> event)
+		public void execute(Event<UserRegisterForm> event)
 				throws Exception {
-			final UIContainer form = event.getSource();
+			UIContainer form = event.getSource();
 
-			final UIFormInputSet accountInputSet = form
+			UIFormInputSet accountInputSet = form
 					.getChild(AccountInputSet.class);
 
-			final String password = accountInputSet
+			String password = accountInputSet
 					.getUIStringInput("password").getValue();
 
-			final UIApplication app = event.getRequestContext()
+			UIApplication app = event.getRequestContext()
 					.getUIApplication();
 
 			if (!password.equals(accountInputSet.getUIStringInput(
@@ -105,12 +105,12 @@ public final class UserRegisterForm extends UIFormTabPane {
 				return;
 			}
 
-			final OrganizationService orgService = form
+			OrganizationService orgService = form
 					.getApplicationComponent(OrganizationService.class);
 
-			final UserHandler userHandler = orgService.getUserHandler();
+			UserHandler userHandler = orgService.getUserHandler();
 
-			final String userName = accountInputSet
+			String userName = accountInputSet
 					.getUIStringInput("userName").getValue();
 
 			if (userHandler.findUserByName(userName) != null) {
@@ -121,7 +121,7 @@ public final class UserRegisterForm extends UIFormTabPane {
 				return;
 			}
 
-			final User user = userHandler.createUserInstance(userName);
+			User user = userHandler.createUserInstance(userName);
 
 			user.setPassword(password);
 
@@ -135,13 +135,13 @@ public final class UserRegisterForm extends UIFormTabPane {
 
 			userHandler.createUser(user, true);
 
-			final UserProfileHandler userProfileHandler = orgService
+			UserProfileHandler userProfileHandler = orgService
 					.getUserProfileHandler();
 
-			final UserProfile userProfile = userProfileHandler
+			UserProfile userProfile = userProfileHandler
 					.createUserProfileInstance(user.getUserName());
 
-			final UIFormInputSet userProfileInputSet = form
+			UIFormInputSet userProfileInputSet = form
 					.getChild(UserProfileInputSet.class);
 
 			userProfile.setAttribute("sampleAttribute", userProfileInputSet
@@ -159,20 +159,20 @@ public final class UserRegisterForm extends UIFormTabPane {
 
 	}
 
-	public static final class ResetActionListener extends
+	public static class ResetActionListener extends
 			EventListener<UserRegisterForm> {
 
 		@Override
-		public void execute(final Event<UserRegisterForm> event)
+		public void execute(Event<UserRegisterForm> event)
 				throws Exception {
-			final UIContainer form = event.getSource();
+			UIContainer form = event.getSource();
 
-			final UIFormInputSet accountInputSet = form
+			UIFormInputSet accountInputSet = form
 					.getChild(AccountInputSet.class);
 
 			accountInputSet.reset();
 
-			final UIFormInputSet userProfileInputSet = form
+			UIFormInputSet userProfileInputSet = form
 					.getChild(UserProfileInputSet.class);
 
 			userProfileInputSet.reset();
@@ -183,7 +183,7 @@ public final class UserRegisterForm extends UIFormTabPane {
 	public UserRegisterForm() throws Exception {
 		super("UserRegisterForm");
 
-		final UIComponent accountInputSet = new AccountInputSet(
+		UIComponent accountInputSet = new AccountInputSet(
 				"AccountInputSet");
 
 		addChild(accountInputSet);

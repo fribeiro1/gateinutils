@@ -21,21 +21,21 @@ import org.exoplatform.services.organization.Query;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.UserHandler;
 
-public final class UserPageList extends PageListAccess<User, Query> {
-	private static final long serialVersionUID = -2486570712351082042L;
+public class UserPageList extends PageListAccess<User, Query> {
+	private static long serialVersionUID = -2486570712351082042L;
 
-	public UserPageList(final Query state, final int pageSize) {
+	public UserPageList(Query state, int pageSize) {
 		super(state, pageSize);
 	}
 
 	@SuppressWarnings("deprecation")
-	protected ListAccess<User> create(final Query state) throws Exception {
-		final ExoContainer container = PortalContainer.getInstance();
+	protected ListAccess<User> create(Query state) throws Exception {
+		ExoContainer container = PortalContainer.getInstance();
 
-		final OrganizationService orgService = (OrganizationService) container
+		OrganizationService orgService = (OrganizationService) container
 				.getComponentInstance(OrganizationService.class);
 
-		final UserHandler userHandler = orgService.getUserHandler();
+		UserHandler userHandler = orgService.getUserHandler();
 
 		return Safe.unwrap(userHandler.findUsers(state));
 	}

@@ -24,20 +24,20 @@ import org.exoplatform.webui.form.validator.PasswordStringLengthValidator;
 import org.exoplatform.webui.form.validator.StringLengthValidator;
 
 @Serialized
-public final class AccountInputSet extends UIFormInputSet {
+public class AccountInputSet extends UIFormInputSet {
 	private User user;
 
-	public AccountInputSet(final String id) throws Exception {
+	public AccountInputSet(String id) throws Exception {
 		super(id);
 
-		final UICheckBoxInput changePasswordInput = new UICheckBoxInput(
+		UICheckBoxInput changePasswordInput = new UICheckBoxInput(
 				"changePassword", null, false);
 
 		changePasswordInput.setOnChange("CheckChangePassword");
 
 		addChild(changePasswordInput);
 
-		final UIComponent passwordInput = new UIFormStringInput("password",
+		UIComponent passwordInput = new UIFormStringInput("password",
 				null, null).setType(UIFormStringInput.PASSWORD_TYPE)
 				.addValidator(MandatoryValidator.class)
 				.addValidator(PasswordStringLengthValidator.class, 6, 30);
@@ -46,7 +46,7 @@ public final class AccountInputSet extends UIFormInputSet {
 
 		addChild(passwordInput);
 
-		final UIComponent confirmPasswordInput = new UIFormStringInput(
+		UIComponent confirmPasswordInput = new UIFormStringInput(
 				"confirmPassword", null, null)
 				.setType(UIFormStringInput.PASSWORD_TYPE)
 				.addValidator(MandatoryValidator.class)
@@ -67,15 +67,15 @@ public final class AccountInputSet extends UIFormInputSet {
 	}
 
 	public void init() throws Exception {
-		final UIFormInput<String> firstNameInput = getUIStringInput("firstName");
+		UIFormInput<String> firstNameInput = getUIStringInput("firstName");
 
 		firstNameInput.setValue(user.getFirstName());
 
-		final UIFormInput<String> lastNameInput = getUIStringInput("lastName");
+		UIFormInput<String> lastNameInput = getUIStringInput("lastName");
 
 		lastNameInput.setValue(user.getLastName());
 
-		final UIFormInput<String> emailInput = getUIStringInput("email");
+		UIFormInput<String> emailInput = getUIStringInput("email");
 
 		emailInput.setValue(user.getEmail());
 	}
@@ -84,20 +84,20 @@ public final class AccountInputSet extends UIFormInputSet {
 	public void reset() {
 		super.reset();
 
-		final UICheckBoxInput changePasswordInput = getUICheckBoxInput("changePassword");
+		UICheckBoxInput changePasswordInput = getUICheckBoxInput("changePassword");
 
 		changePasswordInput.setChecked(false);
 
-		final UIComponent passwordInput = getUIStringInput("password");
+		UIComponent passwordInput = getUIStringInput("password");
 
 		passwordInput.setRendered(false);
 
-		final UIComponent confirmPasswordInput = getUIStringInput("confirmPassword");
+		UIComponent confirmPasswordInput = getUIStringInput("confirmPassword");
 
 		confirmPasswordInput.setRendered(false);
 	}
 
-	public void setUser(final User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

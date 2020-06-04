@@ -25,9 +25,9 @@ import org.exoplatform.webui.form.validator.ResourceValidator;
 import org.exoplatform.webui.form.validator.StringLengthValidator;
 
 @Serialized
-public final class AccountInputSet extends UIFormInputWithActions {
+public class AccountInputSet extends UIFormInputWithActions {
 
-	public AccountInputSet(final String id) throws Exception {
+	public AccountInputSet(String id) throws Exception {
 		super(id);
 
 		addChild(new UIFormStringInput("userName", "userName", null)
@@ -53,9 +53,9 @@ public final class AccountInputSet extends UIFormInputWithActions {
 				EmailAddressValidator.class).addValidator(
 				MandatoryValidator.class));
 
-		final List<ActionData> actions = new ArrayList<ActionData>();
+		List<ActionData> actions = new ArrayList<ActionData>();
 
-		final ActionData checkAvailability = new ActionData();
+		ActionData checkAvailability = new ActionData();
 
 		checkAvailability.setActionListener("CheckAvailability");
 

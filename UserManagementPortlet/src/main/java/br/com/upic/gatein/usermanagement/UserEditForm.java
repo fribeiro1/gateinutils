@@ -36,28 +36,28 @@ import org.exoplatform.webui.form.input.UICheckBoxInput;
 		@EventConfig(listeners = UserEditForm.BackActionListener.class, phase = Phase.DECODE),
 		@EventConfig(name = "CheckChangePassword", listeners = UserEditForm.CheckChangePasswordActionListener.class, phase = Phase.DECODE) })
 @Serialized
-public final class UserEditForm extends UIFormTabPane {
+public class UserEditForm extends UIFormTabPane {
 
-	public static final class BackActionListener extends
+	public static class BackActionListener extends
 			EventListener<UserEditForm> {
 
 		@Override
-		public void execute(final Event<UserEditForm> event) throws Exception {
-			final UIContainer form = event.getSource();
+		public void execute(Event<UserEditForm> event) throws Exception {
+			UIContainer form = event.getSource();
 
 			form.setRendered(false);
 
-			final UserSearch search = form.<UIContainer> getParent().getChild(
+			UserSearch search = form.<UIContainer> getParent().getChild(
 					UserSearch.class);
 
 			search.setRendered(true);
 
-			final UIFormInputSet accountInputSet = form
+			UIFormInputSet accountInputSet = form
 					.getChild(AccountInputSet.class);
 
 			accountInputSet.reset();
 
-			final UIFormInputSet userProfileInputSet = form
+			UIFormInputSet userProfileInputSet = form
 					.getChild(UserProfileInputSet.class);
 
 			userProfileInputSet.reset();
@@ -65,26 +65,26 @@ public final class UserEditForm extends UIFormTabPane {
 
 	}
 
-	public static final class CheckChangePasswordActionListener extends
+	public static class CheckChangePasswordActionListener extends
 			EventListener<UserEditForm> {
 
-		public void execute(final Event<UserEditForm> event) throws Exception {
-			final UIContainer form = event.getSource();
+		public void execute(Event<UserEditForm> event) throws Exception {
+			UIContainer form = event.getSource();
 
-			final UIFormInputSet accountInputSet = form
+			UIFormInputSet accountInputSet = form
 					.getChild(AccountInputSet.class);
 
-			final UIComponent passwordInput = accountInputSet
+			UIComponent passwordInput = accountInputSet
 					.getUIStringInput("password");
 
-			final UICheckBoxInput changePasswordInput = accountInputSet
+			UICheckBoxInput changePasswordInput = accountInputSet
 					.getUICheckBoxInput("changePassword");
 
-			final boolean changePassword = changePasswordInput.isChecked();
+			boolean changePassword = changePasswordInput.isChecked();
 
 			passwordInput.setRendered(changePassword);
 
-			final UIComponent confirmPasswordInput = accountInputSet
+			UIComponent confirmPasswordInput = accountInputSet
 					.getUIStringInput("confirmPassword");
 
 			confirmPasswordInput.setRendered(changePassword);
@@ -92,24 +92,24 @@ public final class UserEditForm extends UIFormTabPane {
 
 	}
 
-	public static final class SaveActionListener extends
+	public static class SaveActionListener extends
 			EventListener<UserEditForm> {
 
 		@Override
-		public void execute(final Event<UserEditForm> event) throws Exception {
-			final UserEditForm form = event.getSource();
+		public void execute(Event<UserEditForm> event) throws Exception {
+			UserEditForm form = event.getSource();
 
-			final UIFormInputSet accountInputSet = form
+			UIFormInputSet accountInputSet = form
 					.getChild(AccountInputSet.class);
 
-			final UIApplication app = event.getRequestContext()
+			UIApplication app = event.getRequestContext()
 					.getUIApplication();
 
-			final UICheckBoxInput changePasswordInput = accountInputSet
+			UICheckBoxInput changePasswordInput = accountInputSet
 					.getUICheckBoxInput("changePassword");
 
 			if (changePasswordInput.isChecked()) {
-				final String password = accountInputSet.getUIStringInput(
+				String password = accountInputSet.getUIStringInput(
 						"password").getValue();
 
 				if (!password.equals(form.getUIStringInput("confirmPassword")
@@ -133,17 +133,17 @@ public final class UserEditForm extends UIFormTabPane {
 			form.user.setEmail(accountInputSet.getUIStringInput("email")
 					.getValue());
 
-			final OrganizationService orgService = form
+			OrganizationService orgService = form
 					.getApplicationComponent(OrganizationService.class);
 
-			final UserHandler userHandler = orgService.getUserHandler();
+			UserHandler userHandler = orgService.getUserHandler();
 
 			userHandler.saveUser(form.user, true);
 
-			final UserProfileHandler userProfileHandler = orgService
+			UserProfileHandler userProfileHandler = orgService
 					.getUserProfileHandler();
 
-			final UIFormInputSet userProfileInputSet = form
+			UIFormInputSet userProfileInputSet = form
 					.getChild(UserProfileInputSet.class);
 
 			form.userProfile.setAttribute("sampleAttribute",
@@ -169,7 +169,7 @@ public final class UserEditForm extends UIFormTabPane {
 	public UserEditForm() throws Exception {
 		super("UserEditForm");
 
-		final UIComponent accountInputSet = new AccountInputSet(
+		UIComponent accountInputSet = new AccountInputSet(
 				"AccountInputSet");
 
 		addChild(accountInputSet);
@@ -182,24 +182,24 @@ public final class UserEditForm extends UIFormTabPane {
 	}
 
 	public void init() throws Exception {
-		final AccountInputSet accountInputSet = getChild(AccountInputSet.class);
+		AccountInputSet accountInputSet = getChild(AccountInputSet.class);
 
 		accountInputSet.setUser(user);
 
 		accountInputSet.init();
 
-		final UserProfileInputSet userProfileInputSet = getChild(UserProfileInputSet.class);
+		UserProfileInputSet userProfileInputSet = getChild(UserProfileInputSet.class);
 
 		userProfileInputSet.setUserProfile(userProfile);
 
 		userProfileInputSet.init();
 	}
 
-	public void setUser(final User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public void setUserProfile(final UserProfile userProfile) {
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
 

@@ -39,25 +39,25 @@ import org.exoplatform.webui.form.UIFormInputSet;
 		@EventConfig(name = "Edit", listeners = UserSearch.EditUserActionListener.class),
 		@EventConfig(name = "Delete", listeners = UserSearch.DeleteUserActionListener.class, confirm = "UserSearch.confirm.Delete") })
 @Serialized
-public final class UserSearch extends UISearch {
+public class UserSearch extends UISearch {
 
-	public static final class DeleteUserActionListener extends
+	public static class DeleteUserActionListener extends
 			EventListener<UserSearch> {
 
-		public void execute(final Event<UserSearch> event) throws Exception {
-			final UserSearch search = event.getSource();
+		public void execute(Event<UserSearch> event) throws Exception {
+			UserSearch search = event.getSource();
 
-			final OrganizationService orgService = search
+			OrganizationService orgService = search
 					.getApplicationComponent(OrganizationService.class);
 
-			final UserHandler userHandler = orgService.getUserHandler();
+			UserHandler userHandler = orgService.getUserHandler();
 
 			userHandler.removeUser(event.getRequestContext()
 					.getRequestParameter(OBJECTID), true);
 
 			search.search(search.lastQuery_);
 
-			final UIPageIterator pageIterator = search.<UIGrid> getChild(
+			UIPageIterator pageIterator = search.<UIGrid> getChild(
 					UIGrid.class).getUIPageIterator();
 
 			int currentPage = pageIterator.getCurrentPage();
@@ -70,31 +70,31 @@ public final class UserSearch extends UISearch {
 
 	}
 
-	public static final class EditUserActionListener extends
+	public static class EditUserActionListener extends
 			EventListener<UserSearch> {
 
-		public void execute(final Event<UserSearch> event) throws Exception {
-			final UIComponent search = event.getSource();
+		public void execute(Event<UserSearch> event) throws Exception {
+			UIComponent search = event.getSource();
 
 			search.setRendered(false);
 
-			final UserEditForm form = search.<UIContainer> getParent()
+			UserEditForm form = search.<UIContainer> getParent()
 					.getChild(UserEditForm.class);
 
-			final OrganizationService orgService = search
+			OrganizationService orgService = search
 					.getApplicationComponent(OrganizationService.class);
 
-			final UserHandler userHandler = orgService.getUserHandler();
+			UserHandler userHandler = orgService.getUserHandler();
 
-			final User user = userHandler.findUserByName(event
+			User user = userHandler.findUserByName(event
 					.getRequestContext().getRequestParameter(OBJECTID));
 
 			form.setUser(user);
 
-			final UserProfileHandler userProfileHandler = orgService
+			UserProfileHandler userProfileHandler = orgService
 					.getUserProfileHandler();
 
-			final UserProfile userProfile = userProfileHandler
+			UserProfile userProfile = userProfileHandler
 					.findUserProfileByName(user.getUserName());
 
 			form.setUserProfile(userProfile);
@@ -126,12 +126,12 @@ public final class UserSearch extends UISearch {
 	}
 
 	@Override
-	public void processRender(final WebuiRequestContext context)
+	public void processRender(WebuiRequestContext context)
 			throws Exception {
-		final UIPageIterator pageIterator = getChild(UIGrid.class)
+		UIPageIterator pageIterator = getChild(UIGrid.class)
 				.getUIPageIterator();
 
-		final int currentPage = pageIterator.getCurrentPage();
+		int currentPage = pageIterator.getCurrentPage();
 
 		search(lastQuery_);
 
@@ -143,14 +143,14 @@ public final class UserSearch extends UISearch {
 	}
 
 	@Override
-	public void quickSearch(final UIFormInputSet quickSearchInput)
+	public void quickSearch(UIFormInputSet quickSearchInput)
 			throws Exception {
-		final Query query = new Query();
+		Query query = new Query();
 
-		final String key = quickSearchInput.<UIFormInputBase<String>> getChild(
+		String key = quickSearchInput.<UIFormInputBase<String>> getChild(
 				1).getValue();
 
-		final String value = quickSearchInput
+		String value = quickSearchInput
 				.<UIFormInputBase<String>> getChild(0).getValue();
 
 		if (key.equals("userName"))
@@ -165,10 +165,10 @@ public final class UserSearch extends UISearch {
 		search(query);
 	}
 
-	public void search(final Query query) throws Exception {
+	public void search(Query query) throws Exception {
 		lastQuery_ = query;
 
-		final UIPageIterator pageIterator = getChild(UIGrid.class)
+		UIPageIterator pageIterator = getChild(UIGrid.class)
 				.getUIPageIterator();
 
 		pageIterator.setPageList(new UserPageList(query, 10));

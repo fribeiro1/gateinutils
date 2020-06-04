@@ -16,7 +16,7 @@ import org.exoplatform.webui.core.UIPortletApplication;
 import org.exoplatform.webui.core.lifecycle.UIApplicationLifecycle;
 
 @ComponentConfig(lifecycle = UIApplicationLifecycle.class, template = "app:/groovy/webui/component/UserRegisterPortlet.gtmpl")
-public final class UserRegisterPortlet extends UIPortletApplication {
+public class UserRegisterPortlet extends UIPortletApplication {
 
 	public UserRegisterPortlet() throws Exception {
 		addChild(UserRegisterForm.class, null, null);

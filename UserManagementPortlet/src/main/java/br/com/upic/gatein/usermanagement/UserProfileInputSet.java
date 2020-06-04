@@ -20,10 +20,10 @@ import org.exoplatform.webui.form.UIFormInputSet;
 import org.exoplatform.webui.form.UIFormStringInput;
 
 @Serialized
-public final class UserProfileInputSet extends UIFormInputSet {
+public class UserProfileInputSet extends UIFormInputSet {
 	private UserProfile userProfile;
 
-	public UserProfileInputSet(final String id) throws Exception {
+	public UserProfileInputSet(String id) throws Exception {
 		super(id);
 
 		addChild(new UIFormStringInput("sampleAttribute", "sampleAttribute",
@@ -31,14 +31,14 @@ public final class UserProfileInputSet extends UIFormInputSet {
 	}
 
 	public void init() throws Exception {
-		final UIFormInput<String> sampleAttributeInput = getUIStringInput("sampleAttribute");
+		UIFormInput<String> sampleAttributeInput = getUIStringInput("sampleAttribute");
 
-		final Map<String, String> userInfoMap = userProfile.getUserInfoMap();
+		Map<String, String> userInfoMap = userProfile.getUserInfoMap();
 
 		sampleAttributeInput.setValue(userInfoMap.get("sampleAttribute"));
 	}
 
-	public void setUserProfile(final UserProfile userProfile) {
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
 

@@ -16,7 +16,7 @@ import org.exoplatform.webui.core.UIPortletApplication;
 import org.exoplatform.webui.core.lifecycle.UIApplicationLifecycle;
 
 @ComponentConfig(lifecycle = UIApplicationLifecycle.class, template = "app:/groovy/webui/component/UserManagementPortlet.gtmpl")
-public final class UserManagementPortlet extends UIPortletApplication {
+public class UserManagementPortlet extends UIPortletApplication {
 
 	public UserManagementPortlet() throws Exception {
 		addChild(UserSearch.class, null, null).setRendered(true);

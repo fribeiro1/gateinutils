@@ -16,9 +16,9 @@ import org.exoplatform.webui.form.UIFormInputSet;
 import org.exoplatform.webui.form.UIFormStringInput;
 
 @Serialized
-public final class UserProfileInputSet extends UIFormInputSet {
+public class UserProfileInputSet extends UIFormInputSet {
 
-	public UserProfileInputSet(final String id) throws Exception {
+	public UserProfileInputSet(String id) throws Exception {
 		super(id);
 
 		addChild(new UIFormStringInput("sampleAttribute", "sampleAttribute",
